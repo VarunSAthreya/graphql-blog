@@ -1,33 +1,22 @@
 import { NextPage } from 'next';
 import { Categories, PostCard, PostWidgets } from '../components';
+import { getPosts } from '../services';
 
-const posts: IPost[] = [
-    {
-        title: 'React Testing',
-        excerpt:
-            'React Testing is a collection of React testing tools and libraries.',
-    },
-    {
-        title: 'React tailwind',
-        excerpt: 'React And tailwind tutorials',
-    },
-    {
-        title: 'Next Testing',
-        excerpt: 'NextJS testing',
-    },
-];
+type Props = {
+    posts: IResponsePost[];
+};
 
-const Home: NextPage = () => {
+const Home: NextPage<Props> = ({ posts }: Props) => {
     return (
-        <div className="container mx-auto px-10 mb-8">
-            <div className="grid grid-cols-1 lg:grid-cols-12 gap-12">
-                <div className="lg:col-span-8 col-span-1">
+        <div className="container px-10 mx-auto mb-8">
+            <div className="grid grid-cols-1 gap-12 lg:grid-cols-12">
+                <div className="col-span-1 lg:col-span-8">
                     {posts.map((post, index) => (
-                        <PostCard post={post} key={index} />
+                        <PostCard post={post.node} key={index} />
                     ))}
                 </div>
-                <div className="lg:col-span-4 col-span-1">
-                    <div className="lg:sticky relative top-8">
+                <div className="col-span-1 lg:col-span-4">
+                    <div className="relative lg:sticky top-8">
                         <PostWidgets />
                         <Categories />
                     </div>
@@ -38,3 +27,11 @@ const Home: NextPage = () => {
 };
 
 export default Home;
+
+export async function getStaticProps() {
+    const posts: IResponsePost[] = (await getPosts()) || [];
+
+    return {
+        props: { posts },
+    };
+}
