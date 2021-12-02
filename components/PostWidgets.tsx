@@ -14,17 +14,13 @@ const PostWidgets: FunctionComponent<Props> = ({ categories, slug }: Props) => {
     useEffect(() => {
         if (slug) {
             getSimilarPosts({ categories, slug })
-                .then((data) => {
-                    setRelatedPosts(data);
-                })
+                .then((data) => setRelatedPosts(data))
                 .catch((error) => {
                     console.log(error);
                 });
         } else {
             getRecentPosts()
-                .then((data) => {
-                    setRelatedPosts(data);
-                })
+                .then((data) => setRelatedPosts(data))
                 .catch((error) => {
                     console.log(error);
                 });
