@@ -10,19 +10,15 @@ interface IPost {
     categories: ICategory[];
 }
 
+interface IPostDetails extends IPost {
+    content: {
+        raw: string;
+    };
+}
+
 interface IResponsePost {
     cursor: string;
-    node: {
-        author: IAuthor;
-        createdAt: string;
-        slug: string;
-        title: string;
-        excerpt: string;
-        featuredImage: {
-            url: string;
-        };
-        categories: ICategory[];
-    };
+    node: IPost;
 }
 
 interface ICategory {

@@ -1,4 +1,4 @@
-import { NextPage } from 'next';
+import { GetStaticProps, NextPage } from 'next';
 import { Categories, PostCard, PostWidgets } from '../components';
 import { getPosts } from '../services';
 
@@ -28,10 +28,10 @@ const Home: NextPage<Props> = ({ posts }: Props) => {
 
 export default Home;
 
-export async function getStaticProps() {
+export const getStaticProps: GetStaticProps = async () => {
     const posts: IResponsePost[] = (await getPosts()) || [];
 
     return {
         props: { posts },
     };
-}
+};
