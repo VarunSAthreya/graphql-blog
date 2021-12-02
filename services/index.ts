@@ -2,7 +2,7 @@ import { gql, request } from 'graphql-request';
 
 const graphqlAPI = process.env.NEXT_PUBLIC_GRAPHCMS_ENDPOINT;
 
-export const getPosts = async () => {
+export const getPosts = async (): Promise<IResponsePost> => {
     const query = gql`
         query MyQuery {
             postsConnection {
@@ -36,10 +36,10 @@ export const getPosts = async () => {
 
     const response = await request(graphqlAPI, query);
 
-    return response.postsConnection.edges;
+    return response.postsConnection.edges as IResponsePost;
 };
 
-export const getRecentPosts = async () => {
+export const getRecentPosts = async (): Promise<IResponsePost> => {
     const query = gql`
         query GetPostDetails(){
             posts(
@@ -58,7 +58,7 @@ export const getRecentPosts = async () => {
 
     const response = await request(graphqlAPI, query);
 
-    return response.posts;
+    return response.posts as IResponsePost;
 };
 
 export const getSimilarPosts = async ({
@@ -67,7 +67,7 @@ export const getSimilarPosts = async ({
 }: {
     categories: string;
     slug: string;
-}) => {
+}): Promise<IResponsePost> => {
     const query = gql`
         query GetPostDetails($slug: String!, $categories: [String!]) {
             posts(
@@ -89,5 +89,20 @@ export const getSimilarPosts = async ({
 
     const response = await request(graphqlAPI, query);
 
-    return response.posts;
+    return response.posts as IResponsePost;
+};
+
+export const getCategories = async (): Promise<ICategory> => {
+    const query = gql`
+        query GetCategories {
+            categories: {
+                name
+                slug
+            }
+        }
+    `;
+
+    const response = await request(graphqlAPI, query);
+
+    return response.categories as ICategory;
 };
