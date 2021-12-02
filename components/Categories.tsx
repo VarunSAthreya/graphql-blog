@@ -1,5 +1,5 @@
 import Link from 'next/link';
-import React, { FunctionComponent, useEffect, useState } from 'react';
+import { FunctionComponent, useEffect, useState } from 'react';
 import { getCategories } from '../services';
 
 const Categories: FunctionComponent = () => {
