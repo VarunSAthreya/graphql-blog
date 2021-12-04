@@ -4,7 +4,7 @@ import { FunctionComponent, useEffect, useState } from 'react';
 import { getRecentPosts, getSimilarPosts } from '../services';
 
 type Props = {
-    categories?: string;
+    categories?: string[];
     slug?: string;
 };
 
