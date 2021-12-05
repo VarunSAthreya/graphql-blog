@@ -12,7 +12,21 @@ interface IPost {
 
 interface IPostDetails extends IPost {
     content: {
-        raw: string;
+        raw: {
+            children: [
+                {
+                    children: [
+                        {
+                            text: string;
+                            bold?: boolean;
+                            italic?: boolean;
+                            underline?: boolean;
+                        }
+                    ];
+                    type: string;
+                }
+            ];
+        };
     };
 }
 
