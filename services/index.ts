@@ -143,3 +143,12 @@ export const getCategories = async (): Promise<ICategory[]> => {
 
     return response.categories as ICategory[];
 };
+
+export const submitComment = async (obj: IComment) => {
+    const result = await fetch('/api/comments', {
+        method: 'POST',
+        body: JSON.stringify(obj),
+    });
+
+    return result.json();
+};

@@ -1,4 +1,5 @@
 import { FunctionComponent, useRef, useState } from 'react';
+import { submitComment } from '../services';
 
 type Props = {
     slug: string;
@@ -28,7 +29,7 @@ const CommentsForm: FunctionComponent<Props> = ({ slug }: Props) => {
             return;
         }
 
-        const commentObj = {
+        const commentObj: IComment = {
             name,
             email,
             comment,
@@ -42,6 +43,13 @@ const CommentsForm: FunctionComponent<Props> = ({ slug }: Props) => {
             localStorage.removeItem('name', name);
             localStorage.removeItem('email', email);
         }
+
+        submitComment(commentObj).then((res) => {
+            setShowSuccessMessage(true);
+            setTimeout(() => {
+                setShowSuccessMessage(false);
+            }, 3000);
+        });
     };
 
     return (
