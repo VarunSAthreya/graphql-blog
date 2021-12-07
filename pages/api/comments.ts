@@ -3,7 +3,7 @@ import { NextApiRequest, NextApiResponse } from 'next';
 
 const graphqlAPI = process.env.NEXT_PUBLIC_GRAPHCMS_ENDPOINT;
 
-export default async function comment(
+export default async function commentHandler(
     req: NextApiRequest,
     res: NextApiResponse
 ) {

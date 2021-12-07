@@ -1,4 +1,4 @@
-import { FunctionComponent, useRef, useState } from 'react';
+import { FunctionComponent, useEffect, useRef, useState } from 'react';
 import { submitComment } from '../services';
 
 type Props = {
@@ -15,6 +15,11 @@ const CommentsForm: FunctionComponent<Props> = ({ slug }: Props) => {
     const nameEl = useRef(null);
     const emailEl = useRef(null);
     const storeDataEl = useRef(null);
+
+    useEffect(() => {
+        nameEl.current.value = window.localStorage.getItem('name');
+        emailEl.current.value = window.localStorage.getItem('email');
+    }, []);
 
     const handleCommentSubmission = () => {
         setError(false);
@@ -37,11 +42,11 @@ const CommentsForm: FunctionComponent<Props> = ({ slug }: Props) => {
         };
 
         if (storeData) {
-            localStorage.setItem('name', name);
-            localStorage.setItem('email', email);
+            window.localStorage.setItem('name', name);
+            window.localStorage.setItem('email', email);
         } else {
-            localStorage.removeItem('name', name);
-            localStorage.removeItem('email', email);
+            window.localStorage.removeItem('name');
+            window.localStorage.removeItem('email');
         }
 
         submitComment(commentObj).then((res) => {
@@ -55,7 +60,7 @@ const CommentsForm: FunctionComponent<Props> = ({ slug }: Props) => {
     return (
         <div className="p-8 pb-12 mb-8 bg-white rounded-lg shadow-lg">
             <h3 className="pb-4 mb-8 text-xl font-semibold border-b">
-                CommentsForm
+                Leave a Reply
             </h3>
             <div className="grid grid-cols-1 gap-4 mb-4">
                 <textarea
