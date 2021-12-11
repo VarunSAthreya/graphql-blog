@@ -54,4 +54,5 @@ interface IComment {
     name: string;
     email: string;
     comment: string;
+    createdAt: string;
 }
