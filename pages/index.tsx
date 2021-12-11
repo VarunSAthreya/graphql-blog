@@ -1,5 +1,5 @@
 import { GetStaticProps, NextPage } from 'next';
-import { Categories, PostCard, PostWidgets } from '../components';
+import { Categories, PostCard, PostWidget } from '../components';
 import { FeaturedPosts } from '../sections';
 import { getPosts } from '../services';
 
@@ -19,7 +19,7 @@ const Home: NextPage<Props> = ({ posts }: Props) => {
                 </div>
                 <div className="col-span-1 lg:col-span-4">
                     <div className="relative lg:sticky top-8">
-                        <PostWidgets />
+                        <PostWidget />
                         <Categories />
                     </div>
                 </div>

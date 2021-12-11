@@ -193,7 +193,9 @@ export const submitComment = async (obj: IComment) => {
     return result.json();
 };
 
-export const getComments = async (slug: string): Promise<IComment[]> => {
+export const getComments = async (
+    slug: string
+): Promise<IResponseComment[]> => {
     const query = gql`
         query GetComments($slug: String!) {
             comments(where: { post: { slug: $slug } }) {
@@ -206,7 +208,7 @@ export const getComments = async (slug: string): Promise<IComment[]> => {
 
     const response = await request(graphqlAPI, query, { slug });
 
-    return response.comments as IComment[];
+    return response.comments as IResponseComment[];
 };
 
 export const getFeaturedPosts = async (): Promise<IPost[]> => {
@@ -232,4 +234,45 @@ export const getFeaturedPosts = async (): Promise<IPost[]> => {
     const result = await request(graphqlAPI, query);
 
     return result.posts as IPost[];
+};
+
+export const getAdjacentPosts = async (
+    createdAt: Date,
+    slug: string
+): Promise<IAdjacentPost> => {
+    const query = gql`
+        query GetAdjacentPosts($createdAt: DateTime!, $slug: String!) {
+            next: posts(
+                first: 1
+                orderBy: createdAt_ASC
+                where: { slug_not: $slug, AND: { createdAt_gte: $createdAt } }
+            ) {
+                title
+                featuredImage {
+                    url
+                }
+                createdAt
+                slug
+            }
+            previous: posts(
+                first: 1
+                orderBy: createdAt_DESC
+                where: { slug_not: $slug, AND: { createdAt_lte: $createdAt } }
+            ) {
+                title
+                featuredImage {
+                    url
+                }
+                createdAt
+                slug
+            }
+        }
+    `;
+
+    const result = await request(graphqlAPI, query, { slug, createdAt });
+
+    return {
+        next: result.next[0],
+        previous: result.previous[0],
+    } as IAdjacentPost;
 };
