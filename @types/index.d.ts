@@ -35,6 +35,11 @@ interface IResponsePost {
     node: IPost;
 }
 
+interface IAdjacentPost {
+    next: IPost;
+    previous: IPost;
+}
+
 interface ICategory {
     name: string;
     slug: string;
@@ -54,5 +59,8 @@ interface IComment {
     name: string;
     email: string;
     comment: string;
+}
+
+interface IResponseComment extends IComment {
     createdAt: string;
 }
