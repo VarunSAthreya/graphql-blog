@@ -6,7 +6,7 @@ import '../styles/global.scss';
 
 const MyApp: NextPage<AppProps> = ({ Component, pageProps }: AppProps) => {
     return (
-        <Layout>
+        <Layout title="GraphQL Blog">
             <Component {...pageProps} />
         </Layout>
     );
