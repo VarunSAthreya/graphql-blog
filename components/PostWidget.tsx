@@ -8,7 +8,7 @@ type Props = {
     slug?: string;
 };
 
-const PostWidgets: FunctionComponent<Props> = ({ categories, slug }: Props) => {
+const PostWidget: FunctionComponent<Props> = ({ categories, slug }: Props) => {
     const [relatedPosts, setRelatedPosts] = useState<IPost[]>([]);
 
     useEffect(() => {
@@ -57,4 +57,4 @@ const PostWidgets: FunctionComponent<Props> = ({ categories, slug }: Props) => {
     );
 };
 
-export default PostWidgets;
+export default PostWidget;
