@@ -48,7 +48,9 @@ const PostWidget: FunctionComponent<Props> = ({ categories, slug }: Props) => {
                             {format(new Date(post.createdAt), 'MMM dd, yyyy')}
                         </p>
                         <Link href={`/post/${post.slug}`}>
-                            <a className="text-md">{post.title}</a>
+                            <a className="font-semibold text-md">
+                                {post.title}
+                            </a>
                         </Link>
                     </div>
                 </div>

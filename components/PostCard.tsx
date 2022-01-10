@@ -13,7 +13,7 @@ const PostCard: FunctionComponent<Props> = ({ post }: Props) => {
                 <img
                     src={post.featuredImage.url}
                     alt={post.title}
-                    className="absolute object-cover object-top w-full rounded-t-lg shadow-lg h-60 lg:rounded-lg "
+                    className="absolute object-cover object-top w-full rounded-t-lg shadow-lg h-80 lg:rounded-lg "
                 />
             </div>
             <h1 className="mb-8 text-3xl font-semibold text-center duration-700 cursor-pointer transitions hover:text-pink-600">

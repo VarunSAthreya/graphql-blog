@@ -16,7 +16,7 @@ const Categories: FunctionComponent = () => {
             </h3>
             {categories.map((category) => (
                 <Link key={category.slug} href={`/category/${category.slug}`}>
-                    <span className="block pb-3 mb-3 cursor-pointer">
+                    <span className="block pb-3 mb-3 font-semibold cursor-pointer">
                         {category.name}
                     </span>
                 </Link>
