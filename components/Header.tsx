@@ -11,11 +11,11 @@ const Header: FunctionComponent = () => {
 
     return (
         <div className="container px-10 mx-auto mb-8">
-            <div className="inline-block w-full py-8 border-b border-blue-400">
+            <div className="inline-block w-full py-8 border-b border-gray-400">
                 <div className="block md:float-left">
                     <Link href="/">
                         <span className="text-4xl font-bold text-white cursor-pointer">
-                            Blog
+                            GraphQL Blog
                         </span>
                     </Link>
                 </div>
