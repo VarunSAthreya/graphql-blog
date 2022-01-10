@@ -1,7 +1,7 @@
 import React, { FunctionComponent, useEffect, useState } from 'react';
 import Carousel from 'react-multi-carousel';
 import 'react-multi-carousel/lib/styles.css';
-import { FeaturedPostCard } from '../components';
+import { FeaturedPostCard, Skeleton } from '../components';
 import { getFeaturedPosts } from '../services';
 
 const responsive = {
@@ -24,17 +24,19 @@ const responsive = {
 };
 
 const FeaturedPosts: FunctionComponent = () => {
-    const [featuredPosts, setFeaturedPosts] = useState([]);
-    const [dataLoaded, setDataLoaded] = useState(false);
+    const [featuredPosts, setFeaturedPosts] = useState<IPost[]>([]);
+    const [dataLoaded, setDataLoaded] = useState<boolean>(false);
+    const [loading, setLoading] = useState(true);
 
     useEffect(() => {
         getFeaturedPosts().then((result) => {
             setFeaturedPosts(result);
             setDataLoaded(true);
+            setLoading(false);
         });
     }, []);
 
-    const customLeftArrow = (
+    const customLeftArrow: JSX.Element = (
         <div className="absolute left-0 py-3 text-center bg-pink-600 rounded-full cursor-pointer arrow-btn">
             <svg
                 xmlns="http://www.w3.org/2000/svg"
@@ -53,7 +55,7 @@ const FeaturedPosts: FunctionComponent = () => {
         </div>
     );
 
-    const customRightArrow = (
+    const customRightArrow: JSX.Element = (
         <div className="absolute right-0 py-3 text-center bg-pink-600 rounded-full cursor-pointer arrow-btn">
             <svg
                 xmlns="http://www.w3.org/2000/svg"
@@ -74,18 +76,22 @@ const FeaturedPosts: FunctionComponent = () => {
 
     return (
         <div className="mb-8">
-            <Carousel
-                infinite
-                customLeftArrow={customLeftArrow}
-                customRightArrow={customRightArrow}
-                responsive={responsive}
-                itemClass="px-4"
-            >
-                {dataLoaded &&
-                    featuredPosts.map((post, index) => (
-                        <FeaturedPostCard key={index} post={post} />
-                    ))}
-            </Carousel>
+            {loading ? (
+                <Skeleton />
+            ) : (
+                <Carousel
+                    infinite
+                    customLeftArrow={customLeftArrow}
+                    customRightArrow={customRightArrow}
+                    responsive={responsive}
+                    itemClass="px-4"
+                >
+                    {dataLoaded &&
+                        featuredPosts.map((post, index) => (
+                            <FeaturedPostCard key={index} post={post} />
+                        ))}
+                </Carousel>
+            )}
         </div>
     );
 };
